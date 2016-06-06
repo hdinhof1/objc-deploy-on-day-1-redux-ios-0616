@@ -117,13 +117,29 @@
 
 -(void)setUpPlayerDisplays
 {
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"xPlayerWinCount"]) { //check if it exists in dictionary
+        [[NSUserDefaults standardUserDefaults] setObject:@(self.game.xPlayerWinCount) forKey:@"xPlayerWinCount"]; //add to dict with new custom key
+        // same thing ^
+    }
+    
+    NSNumber *xPlayerWinCount = [[NSUserDefaults standardUserDefaults] objectForKey:@"xPlayerWinCount"];
+    // get o value same way
+    
+    
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"oPlayerWinCount"]) { //check if it exists in dictionary
+        [[NSUserDefaults standardUserDefaults] setObject:@(self.game.oPlayerWinCount) forKey:@"oPlayerWinCount"];
+    }
+    NSNumber *oPlayerWinCount = [[NSUserDefaults standardUserDefaults] objectForKey:@"oPlayerWinCount"];
+
+    
     self.xPlayerIconLabel.attributedText = [self centeredAttributedStringForIcon:[FAKIonIcons androidCloseIconWithSize:20]];
     self.xPlayerAIIconLabel.attributedText = [self attributedStringForAIIconForPlayer:self.xPlayer];
-    self.xPlayerWinsLabel.text = [NSString stringWithFormat:@"%lu win%@", self.game.xPlayerWinCount, self.game.xPlayerWinCount == 1 ? @"" : @"s"];
+    
+    self.xPlayerWinsLabel.text = [NSString stringWithFormat:@"%lu win%@", self.game.oPlayerWinCount, self.game.oPlayerWinCount == 1 ? @"" : @"s"];
+    self.oPlayerWinsLabel.text = [NSString stringWithFormat:@"%lu win%@", self.game.xPlayerWinCount, self.game.xPlayerWinCount == 1 ? @"" : @"s"];
 
     self.oPlayerIconLabel.attributedText = [self centeredAttributedStringForIcon:[FAKIonIcons androidRadioButtonOffIconWithSize:16]];
     self.oPlayerAIIconLabel.attributedText = [self attributedStringForAIIconForPlayer:self.oPlayer];
-    self.oPlayerWinsLabel.text = [NSString stringWithFormat:@"%lu win%@", self.game.oPlayerWinCount, self.game.oPlayerWinCount == 1 ? @"" : @"s"];
 }
 
 -(void)handleTurn
@@ -186,9 +202,11 @@
 {
     if([symbol isEqualToString:@"X"]) {
         self.game.xPlayerWinCount++;
+        [[NSUserDefaults standardUserDefaults] setObject:@(self.game.xPlayerWinCount) forKey:@"xPlayerWinCount"]; //stores X
     }
     else if([symbol isEqualToString:@"O"]) {
         self.game.oPlayerWinCount++;
+        [[NSUserDefaults standardUserDefaults] setObject:@(self.game.oPlayerWinCount) forKey:@"oPlayerWinCount"]; //stores X
     }
 
     self.winningPlayerSymbol = symbol;

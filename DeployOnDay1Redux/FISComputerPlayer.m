@@ -7,17 +7,32 @@
 //
 
 #import "FISComputerPlayer.h"
+#import "FISTicTacToeGame.h"
 
 @implementation FISComputerPlayer
 
 +(BOOL)isEnabled
 {
-    return NO;
+    return YES;
+    
 }
 
 -(FISTicTacToePosition)nextPlay
 {
-    return FISTicTacToePositionMake(0, 0);
+    NSUInteger row, column;
+    row = arc4random() % 3;
+    column = arc4random() % 3;
+    NSLog(@"row: %lu, column: %lu", (unsigned long)row, column);
+    BOOL canPlay = !([self.game canPlayAtColumn:column row:row]);
+    NSLog(@"can'tPlayAtColumn: %d", canPlay);
+
+    
+    while (!([self.game canPlayAtColumn:row row:column]))
+    {
+        row = arc4random() % 3;
+        column = arc4random() % 3;
+    }
+    return FISTicTacToePositionMake(row, column);
 }
 
 @end
