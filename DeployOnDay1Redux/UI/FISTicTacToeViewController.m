@@ -122,16 +122,19 @@
         // same thing ^
     }
     
-    NSNumber *xPlayerWinCount = [[NSUserDefaults standardUserDefaults] objectForKey:@"xPlayerWinCount"];
+ //   NSNumber *xPlayerWinCount = [[NSUserDefaults standardUserDefaults] objectForKey:@"xPlayerWinCount"];
+    
     // get o value same way
     
     
     if (![[NSUserDefaults standardUserDefaults] objectForKey:@"oPlayerWinCount"]) { //check if it exists in dictionary
         [[NSUserDefaults standardUserDefaults] setObject:@(self.game.oPlayerWinCount) forKey:@"oPlayerWinCount"];
     }
-    NSNumber *oPlayerWinCount = [[NSUserDefaults standardUserDefaults] objectForKey:@"oPlayerWinCount"];
+  //  NSNumber *oPlayerWinCount = [[NSUserDefaults standardUserDefaults] objectForKey:@"oPlayerWinCount"];
     
-
+    self.game.xPlayerWinCount = [[self getPlayerWinCount:@"X"] unsignedIntegerValue];
+    self.game.oPlayerWinCount = [[self getPlayerWinCount:@"O"] unsignedIntegerValue];
+    
     
     self.xPlayerIconLabel.attributedText = [self centeredAttributedStringForIcon:[FAKIonIcons androidCloseIconWithSize:20]];
     self.xPlayerAIIconLabel.attributedText = [self attributedStringForAIIconForPlayer:self.xPlayer];
@@ -225,7 +228,6 @@
     [self incrementWinsAndSaveWithPlayer:symbol score:winCount];
     
     if([symbol isEqualToString:@"X"]) {
-        
        self.game.xPlayerWinCount++;
 //       NSNumber *xPlayerWinCount = [[NSUserDefaults standardUserDefaults] objectForKey:@"xPlayerWinCount"];
   //      [[NSUserDefaults standardUserDefaults] setObject:@(self.game.xPlayerWinCount) forKey:@"xPlayerWinCount"]; //stores X
