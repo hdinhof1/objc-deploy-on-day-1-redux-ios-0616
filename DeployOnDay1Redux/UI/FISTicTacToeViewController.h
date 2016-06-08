@@ -13,4 +13,8 @@
 @property (nonatomic, assign) BOOL xPlayerIsAI;
 @property (nonatomic, assign) BOOL oPlayerIsAI;
 
+-(NSNumber *) getPlayerWinCount:(NSString *)player;
+-(void) incrementWinsAndSaveWithPlayer:(NSString *)player score:(NSNumber *)score ;
+
+
 @end

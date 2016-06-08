@@ -27,12 +27,13 @@
     NSLog(@"can'tPlayAtColumn: %d", canPlay);
 
     
-    while (!([self.game canPlayAtColumn:row row:column]))
+    while (!([self.game canPlayAtColumn:column row:row]))
     {
         row = arc4random() % 3;
         column = arc4random() % 3;
     }
-    return FISTicTacToePositionMake(row, column);
+    
+    return FISTicTacToePositionMake(column, row);
 }
 
 @end

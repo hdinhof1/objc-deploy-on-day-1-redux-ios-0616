@@ -23,7 +23,6 @@
     if(self) {
         // Do initialization of your game here, inside this if statement.
         // Leave the rest of this method alone :)
-     //   self.board = twoD;
         
        _board = [[NSMutableArray alloc] init];
         NSArray *line1 = @[@"", @"", @""];
@@ -37,9 +36,6 @@
         [_board addObject:mLine];
         [_board addObject:mLine2];
         [_board addObject:mLine3];
-        NSLog(@"%@", _board);
-        NSLog(_board[1][1]);
-
  
 /*        _board[2][2] = {
             {@"", @"", @""},
@@ -65,8 +61,7 @@
 
 -(NSString *)playerAtColumn:(NSUInteger)column row:(NSUInteger)row
 {
-    
-    return _board[column][row];
+    return _board[row][column];
 }
 
 -(BOOL)canPlayAtColumn:(NSUInteger)column row:(NSUInteger)row
@@ -88,7 +83,8 @@
         {
             canPlay = NO;
         }
-
+   // NSLog(@"canPlay? %d row: %lu column: %lu, value %@",canPlay, row, column, _board[row][column]  );
+    
 
     return canPlay;
 }
@@ -97,7 +93,7 @@
 {
     if ([self canPlayAtColumn:column row:row])
     {
-        _board[column][row] = @"X";
+        _board[row][column] = @"X";
     }
 }
 
@@ -105,7 +101,7 @@
 {
     if ([self canPlayAtColumn:column row:row])
     {
-        _board[column][row] = @"O";
+        _board[row][column] = @"O";
     }
 
 }
@@ -113,32 +109,35 @@
 -(NSString *)winningPlayer
 {
     NSString *winner = @"";
-    //row 0
+    /*
+    //column 0
     if (       [_board[0][0] isEqualToString: _board[0][1]]  && [_board[0][1] isEqualToString:_board[0][2]] )
     {
         winner = _board[0][0];
-    //row 1
+    //column 1
     }else if ( [_board[1][0] isEqualToString: _board[1][1]]  && [_board[1][1] isEqualToString:_board[1][2]] )
     {
         winner = _board[1][0];
-    //row 2
+    //column 2
     }else if ( [_board[2][0] isEqualToString: _board[2][1]]  && [_board[2][1] isEqualToString:_board[2][2]] )
     {
         winner = _board[2][0];
-    //column 0
+    //row 0
     }else if ( [_board[0][0] isEqualToString: _board[1][0]]  && [_board[1][0] isEqualToString:_board[2][0]] )
     {
         winner = _board[0][0];
-    //column 1
+    //row 1
     }else if ( [_board[0][1] isEqualToString: _board[1][1]]  && [_board[1][1] isEqualToString:_board[2][1]] )
     {
         winner = _board[0][1];
-    //column 2
+    //row 2
     }else if ( [_board[0][2] isEqualToString: _board[1][2]]  && [_board[1][2] isEqualToString:_board[2][2]] )
     {
         winner = _board[0][2];
     //diagonal 0 - 9
-    }else if ( [_board[0][0] isEqualToString: _board[1][1]]  && [_board[1][1] isEqualToString:_board[2][2]] )
+    }
+    */
+    if ( [_board[0][0] isEqualToString: _board[1][1]]  && [_board[1][1] isEqualToString:_board[2][2]] )
     {
         winner = _board[0][0];
     //diagonal 3 - 7
@@ -146,18 +145,30 @@
     {
         winner = _board[0][2];
     }
-
-    /*
-    //check rows
-    for (NSUInteger i = 0; i < 3; i++)
+     
+    //check column 0 1 2
+    for (NSUInteger column = 0; column < 3; column ++)
     {
-        NSUInteger xScore, oScore = 0;
-        for (NSUInteger j = 0; j < 3; j++)
-        {
-            //if (_board[i][j]
-        }
+        if ([_board[column][0] isEqualToString: _board[column][1]]  && [_board[column][1] isEqualToString:_board[column][2]] )
+            {
+                if ( [_board[column][0] length] > 0) {
+                    winner = _board[column][0];
+                }
+                
+            }
     }
-    */
+    //check row 0 1 2
+    for (NSUInteger row = 0; row < 3; row++)
+    {
+        if ( [_board[0][row] isEqualToString: _board[1][row]]  && [_board[1][row] isEqualToString:_board[2][row]] )
+        {
+            if ( [_board[0][row] length] > 0) {
+                winner = _board[0][row];
+            }
+
+        }
+
+    }
     
    // NSDictionary *domain = (NSDictionary<NSString *,id> *)dictionaryRepresentation;
 /*
